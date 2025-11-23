@@ -1,0 +1,394 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+.netflix-logo-text {
+  font-family: 'Bebas Neue', sans-serif;
+  color: #e50914; 
+  font-size: 3rem;
+  letter-spacing: 3px;
+  cursor: pointer;
+  margin: 0 auto; 
+  text-align: center;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+  line-height: 1;
+  user-select: none;
+}
+
+@media (max-width: 768px) {
+  .netflix-logo-text {
+    font-size: 2.2rem;
+  }
+}
+:root {
+  --bg-main: #0f0f0f; 
+  --bg-card: #1e1e1e;
+  --text-white: #ffffff;
+  --text-gray: #aaaaaa;
+  --netflix-red: #e50914;
+}
+
+body {
+  margin: 0; background-color: var(--bg-main); color: var(--text-white);
+  font-family: 'Roboto', sans-serif;
+}
+
+.navbar {
+  display: flex; align-items: center; padding: 10px 4%;
+  background: rgba(15, 15, 15, 0.95);
+  position: sticky; top: 0; z-index: 10;
+  border-bottom: 1px solid #333;
+}
+.netflix-logo { height: 100px; 
+  width: auto;
+  cursor: pointer;
+  margin: 0 auto; 
+  display: block;
+  object-fit: contain; }
+.path-display { position: absolute; right: 4%; color: var(--text-gray); font-size: 0.8rem; font-family: monospace; }
+
+/* --- GRID LAYOUT --- */
+.content-area { padding: 20px 4%; }
+.media-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 20px 15px; /* Gap between rows vs columns */
+  padding-bottom: 50px;
+}
+
+.media-item-wrapper {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 1. Thumbnail */
+.thumbnail-card {
+  background-color: var(--bg-card);
+  aspect-ratio: 16 / 9;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.2s;
+  overflow: hidden;
+}
+
+.media-item-wrapper:hover .thumbnail-card {
+  transform: scale(1.03);
+  background-color: #2a2a2a;
+}
+
+.card-icon { font-size: 3rem; opacity: 0.8; }
+
+/* 2. Details (Underneath) */
+.item-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 8px;
+  padding-right: 5px;
+}
+
+.item-text {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.filename {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #fff;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.2;
+}
+
+.file-meta {
+  font-size: 0.75rem;
+  color: var(--text-gray);
+  margin-top: 3px;
+}
+
+
+/* Default: Hidden on Desktop */
+.mobile-dots-btn {
+  display: none; 
+}
+
+/* --- BOTTOM SHEET MODAL --- */
+.backdrop {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5); z-index: 2000;
+  opacity: 0; pointer-events: none; transition: opacity 0.3s;
+}
+.backdrop.active { opacity: 1; pointer-events: auto; }
+
+.bottom-sheet {
+  position: fixed;
+  bottom: -100%; /* Hidden below screen */
+  left: 0; width: 100%;
+  background-color: #212121;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  z-index: 2001;
+  transition: bottom 0.3s cubic-bezier(0.1, 0.7, 0.1, 1);
+  padding-bottom: 20px;
+}
+.bottom-sheet.active { bottom: 0; }
+
+.sheet-content { display: flex; flex-direction: column; }
+.sheet-header {
+  padding: 15px 20px;
+  border-bottom: 1px solid #333;
+  margin-bottom: 5px;
+}
+.sheet-title { font-weight: bold; font-size: 1rem; }
+
+.sheet-option {
+  padding: 15px 20px;
+  display: flex; align-items: center; gap: 15px;
+  font-size: 1rem; cursor: pointer;
+}
+.sheet-option:active { background-color: #333; }
+.sheet-icon { font-size: 1.2rem; width: 25px; text-align: center; }
+
+/* --- PLAYER --- */
+.player-overlay {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: #000; z-index: 3000; display: flex; flex-direction: column; justify-content: center;
+}
+.video-player { width: 100%; max-height: 100vh; outline: none; }
+.player-close-btn {
+  position: absolute; top: 20px; right: 20px; background: none; border: none;
+  color: #fff; font-size: 2rem; cursor: pointer; z-index: 3001;
+}
+
+/* --- MOBILE SPECIFIC FIXES --- */
+@media (max-width: 768px) {
+  /* 1. Reset Container Padding so images touch the screen edges */
+  .content-area {
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
+  }
+  @media (max-width: 768px) {
+  .netflix-logo {
+    height: 60px;
+  }
+}
+  /* 2. Switch Grid to a Vertical List Feed */
+  .media-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0; /* We handle spacing on the item itself */
+    padding-bottom: 80px;
+  }
+
+  /* 3. Individual Item Container */
+  .media-item-wrapper {
+    margin-bottom: 24px; /* Proper breathing room between videos */
+    width: 100%;
+    background-color: transparent;
+  }
+
+  /* 4. Thumbnail: Full Width 16:9 & Sharp Edges */
+  .thumbnail-card {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 0; /* Remove rounded corners for feed look */
+    background-color: #111; /* Slightly lighter than black */
+    border-bottom: 1px solid #222; /* Subtle separation */
+  }
+
+  /* 5. Icon sizing inside thumbnail */
+  .card-icon {
+    font-size: 4rem; /* Bigger icons on mobile */
+  }
+
+  /* 6. Details Section: Row Layout (Text Left | Dots Right) */
+  .item-details {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; /* Pushes dots to far right */
+    align-items: flex-start;
+    padding: 12px 16px; /* Standard mobile padding (16px) */
+    width: 100%;
+    box-sizing: border-box; /* Ensures padding doesn't break width */
+  }
+
+  .item-text {
+    flex: 1; /* Takes all available space */
+    padding-right: 15px; /* Stop text from hitting the dots */
+  }
+
+  .filename {
+    font-size: 1rem; /* Readable title size */
+    line-height: 1.3;
+    white-space: normal; /* Allow wrapping */
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Limit to 2 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 4px;
+  }
+
+  .file-meta {
+    font-size: 0.85rem;
+    color: #aaa;
+  }
+
+  /* 7. The Dots Button - Aligned & Easy to Tap */
+  .mobile-dots-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 1.5rem;
+    /* Create a large touch target without messing up layout */
+    width: 40px; 
+    height: 40px;
+    margin-top: -10px; /* Pull it up to align with the first line of text */
+    margin-right: -10px; /* Align flush with the right padding */
+  }
+}
+/* --- TOOLBAR & LAYOUT BTN --- */
+.toolbar {
+  display: flex;
+  justify-content: space-between; /* Pushes Back btn left, Layout btn right */
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.btn-icon {
+  background: transparent;
+  border: 1px solid #444;
+  color: white;
+  font-size: 1.2rem;
+  padding: 5px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn-icon:hover { background: #333; }
+
+/* --- LAYOUT POPUP MENU --- */
+.menu-backdrop-transparent {
+  position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+  z-index: 100; cursor: default;
+}
+
+.layout-popup {
+  position: absolute;
+  top: 130px; /* Adjust based on toolbar height */
+  right: 4%;
+  width: 200px;
+  background-color: #212121;
+  border-radius: 12px;
+  padding: 10px 0;
+  z-index: 101;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  border: 1px solid #333;
+  animation: popIn 0.1s ease-out;
+}
+
+.popup-header {
+  padding: 5px 20px 10px 20px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #aaa;
+}
+
+.popup-option {
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  cursor: pointer;
+  transition: background 0.2s;
+  color: #eee;
+}
+
+.popup-option:hover { background-color: #333; }
+.popup-option.selected { background-color: #2a2a2a; color: var(--netflix-red); }
+
+.popup-icon { font-size: 1.2rem; width: 30px; }
+.popup-text { flex-grow: 1; font-size: 0.95rem; }
+.checkmark { color: var(--netflix-red); font-weight: bold; }
+
+/* --- LIST VIEW TRANSFORMATION --- */
+/* When .list-view class is active */
+.media-grid.list-view {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.media-grid.list-view .media-item-wrapper {
+  width: 100%;
+  box-sizing: border-box; /* Ensures padding doesn't expand width */
+  overflow: hidden; /* Safety net */
+}
+
+.media-grid.list-view .media-item-wrapper:hover {
+  background-color: #333;
+}
+
+/* Shrink thumbnail in list view */
+.media-grid.list-view .thumbnail-card {
+  width: 50px;
+  height: 50px;
+  aspect-ratio: 1;
+  border-radius: 4px;
+  margin-right: 15px;
+  background-color: #222;
+}
+
+.media-grid.list-view .card-icon {
+  font-size: 1.5rem; /* Smaller icon */
+}
+
+.media-grid.list-view .item-details {
+  margin-top: 0;
+  padding: 0;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.media-grid.list-view .item-text {
+  flex-direction: row; /* Folder name and type on same line? or keep stack? */
+  align-items: center;
+  gap: 10px;
+  padding-right: 10px;
+  min-width: 0;
+}
+
+
+.media-grid.list-view .filename {
+  /* Force single line with ellipsis (...) */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  font-size: 0.95rem;
+  color: #fff;
+}
+
+/* Only show Dots in List View if on Desktop (optional) or keep hidden */
+.media-grid.list-view .mobile-dots-btn {
+  display: block; /* Show dots in list view even on desktop if you want */
+  color: #aaa;
+  font-size: 1.2rem;
+}
+.media-grid.list-view .file-meta {
+  /* Prevent "File" label from being squashed */
+  flex-shrink: 0; 
+  font-size: 0.75rem;
+  color: #777;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}

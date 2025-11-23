@@ -1,0 +1,184 @@
+/* client/src/App.css */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+:root {
+  --bg-main: #141414;
+  --bg-card: #181818;
+  --netflix-red: #e50914;
+  --text-white: #ffffff;
+  --text-gray: #b3b3b3;
+}
+
+body {
+  margin: 0;
+  background-color: var(--bg-main);
+  color: var(--text-white);
+  font-family: 'Roboto', sans-serif; /* The classic Netflix font look */
+  -webkit-font-smoothing: antialiased;
+}
+
+/* --- NAV BAR --- */
+.navbar {
+  display: flex;
+  align-items: center;
+  padding: 15px 4%; /* 4% padding for that cinematic width */
+  background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.logo {
+  color: var(--netflix-red);
+  font-size: 1.8rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-right: auto;
+}
+
+/* --- GRID LAYOUT --- */
+.content-area {
+  padding: 20px 4%;
+}
+
+.section-title {
+  font-size: 1.2rem;
+  color: var(--text-gray);
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.media-grid {
+  display: grid;
+  /* Netflix Desktop standard: roughly 5-6 items across */
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
+  gap: 10px; /* Tight gap */
+  padding-bottom: 50px;
+}
+
+/* --- CARDS --- */
+.media-card {
+  background-color: var(--bg-card);
+  aspect-ratio: 16 / 9; /* Cinematic Aspect Ratio */
+  border-radius: 4px;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.3s ease, z-index 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Hover Effect (Desktop) */
+.media-card:hover {
+  transform: scale(1.15); /* Pop out effect */
+  z-index: 99;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.8);
+  border: 1px solid #333;
+}
+
+.card-icon {
+  font-size: 3rem;
+  margin-bottom: 10px;
+  opacity: 0.7;
+}
+
+.card-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 10px;
+  background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%);
+  text-align: center;
+}
+
+.filename {
+  font-size: 0.9rem;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}
+
+/* --- FULLSCREEN VIDEO PLAYER OVERLAY --- */
+.player-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  animation: fadeIn 0.3s ease;
+}
+
+.video-player {
+  width: 100%;
+  max-height: 100vh;
+  outline: none;
+}
+
+.close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: 2px solid white;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  z-index: 1001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-btn:hover {
+  background: white;
+  color: black;
+}
+
+/* --- RESPONSIVE BREAKPOINTS --- */
+@media (max-width: 768px) {
+  /* Tablet/Mobile */
+  .media-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); 
+    gap: 8px;
+  }
+  
+  .media-card:hover {
+    transform: scale(1.05); /* Less aggressive pop on touch */
+  }
+}
+
+@media (max-width: 480px) {
+  /* Small Phones - Strict 2 Column Layout like Netflix Mobile */
+  .media-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  
+  .navbar {
+    padding: 15px 20px;
+  }
+
+  .logo {
+    font-size: 1.5rem;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
