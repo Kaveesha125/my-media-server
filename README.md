@@ -72,7 +72,8 @@ npm start
 
 _(Or `node server.js`)_
 
-> [!TIP] > **Mobile Connection:** The terminal will generate a QR Code. Simply scan it with your phone's camera to connect via Wi-Fi instantly.
+> [!TIP]
+> **Mobile Connection:** The terminal will generate a QR Code. Simply scan it with your phone's camera to connect via Wi-Fi instantly.
 
 ---
 
