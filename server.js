@@ -9,7 +9,8 @@ const app = express();
 const PORT = 8080;
 app.use(cors());
 
-const SERVE_DIR = path.join(os.homedir(), "Downloads");
+// Serves the folder where the .exe is currently running
+const SERVE_DIR = process.cwd();
 
 const getSafePath = (reqPath) => {
   const targetPath = reqPath ? path.join(SERVE_DIR, reqPath) : SERVE_DIR;

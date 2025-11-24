@@ -1,10 +1,20 @@
 {
-  "name": "my-media-server",
+  "name": "my-flix",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Lightning fast local media server",
+  "main": "server.js",
+  "bin": "server.js",
   "scripts": {
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "pkg": {
+    "assets": [
+      "client/dist/**/*"
+    ],
+    "targets": [
+      "node18-win-x64"
+    ]
   },
   "keywords": [],
   "author": "",

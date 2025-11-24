@@ -121,7 +121,7 @@ function App() {
       {/* --- NAVBAR --- */}
       <nav className="navbar">
         <img
-          src="/logo.png"
+          src="/logo.jpg"
           alt="MY FLIX"
           className="netflix-logo"
           onClick={() => setCurrentPath("")}
