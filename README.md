@@ -10,7 +10,7 @@ Designed for speed, security, and instant playback over your local network (LAN)
 
 ## Table of Contents
 
-- [✨ Features](#-features)
+ [✨ Features](#-features)
 - [🚀 Quick Start (Download & Run)](#-quick-start-download--run)
 - [🛠️ Developer Guide (Source Code)](#️-developer-guide-source-code)
 - [⚙️ Configuration & Security](#️-configuration--security)
