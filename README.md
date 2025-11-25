@@ -1,4 +1,4 @@
-# 🍿 My Media Server (Secure Edition)
+# 🍿 my-flix (Secure Edition)
 
 A lightweight, self-hosted streaming server built with **Node.js** and **React**.  
 Designed for speed, security, and instant playback over your local network (LAN).
