@@ -27,11 +27,7 @@ Designed for speed, security, and instant playback over your local network (LAN)
 
 ---
 
-
-![Tutorial]([v1.0.0_2x_demo.webp](https://github.com/user-attachments/assets/7353cb59-3cef-467d-84f3-1eeaafc1f69e))
-
-
-
+<video src="https://github.com/user-attachments/assets/7353cb59-3cef-467d-84f3-1eeaafc1f69e" controls="controls"></video>
 
 ## 🚀 Quick Start (Download & Run)
 
